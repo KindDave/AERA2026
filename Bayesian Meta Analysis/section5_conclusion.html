@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conclusion</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@700;800;900&family=Open+Sans:wght@500;600;700&display=swap');
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  background: #f5f6f8;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 14px;
+  max-width: 400px;
+  margin: 0 auto;
+  gap: 10px;
+}
+
+/* ── TITLE ── */
+.title-bar {
+  background: #1e3a5f;
+  border-radius: 10px;
+  padding: 11px 16px;
+}
+.title-bar h1 {
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: #fff;
+}
+.title-bar p {
+  font-size: .72rem;
+  color: #a8c4e0;
+  margin-top: 2px;
+  font-weight: 600;
+}
+
+/* ── SECTION LABEL ── */
+.sec-label {
+  font-size: .7rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #0d2a4a;
+  margin-bottom: 7px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.sec-label::after {
+  content: '';
+  flex: 1;
+  height: 2px;
+  background: #c0ccd8;
+  border-radius: 2px;
+}
+
+/* ── VERDICT BANNER ── */
+.verdict {
+  background: #fff;
+  border-radius: 10px;
+  padding: 13px 15px;
+  box-shadow: 0 1px 6px rgba(0,0,0,.09);
+  border-left: 5px solid #1e3a5f;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  opacity: 0;
+  animation: fadeUp .4s ease .05s forwards;
+}
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(8px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.verdict-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+.verdict-text {
+  font-family: 'Raleway', sans-serif;
+  font-size: .92rem;
+  font-weight: 900;
+  color: #0a1520;
+  line-height: 1.4;
+}
+.verdict-text span {
+  color: #1e3a5f;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+/* ── CHECKLIST ── */
+.checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  opacity: 0;
+  animation: fadeUp .4s ease .18s forwards;
+}
+
+.check-item {
+  background: #fff;
+  border-radius: 10px;
+  padding: 11px 14px;
+  box-shadow: 0 1px 6px rgba(0,0,0,.09);
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  border-left: 4px solid;
+}
+.check-item:nth-child(1) { border-color: #1e8449; }
+.check-item:nth-child(2) { border-color: #1e5e8a; }
+.check-item:nth-child(3) { border-color: #1a5276; }
+
+/* SVG check circle */
+.check-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.check-item:nth-child(1) .check-circle { background: #e9f7ef; border: 2px solid #1e8449; }
+.check-item:nth-child(2) .check-circle { background: #eaf4fb; border: 2px solid #1e5e8a; }
+.check-item:nth-child(3) .check-circle { background: #eaf2fb; border: 2px solid #1a5276; }
+
+.check-circle svg {
+  width: 18px;
+  height: 18px;
+}
+.checkpath {
+  stroke-dasharray: 28;
+  stroke-dashoffset: 28;
+  animation: drawCheck .55s ease forwards;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  stroke-width: 2.5;
+}
+.check-item:nth-child(1) .checkpath { stroke: #1e8449; animation-delay: .5s; }
+.check-item:nth-child(2) .checkpath { stroke: #1e5e8a; animation-delay: .65s; }
+.check-item:nth-child(3) .checkpath { stroke: #1a5276; animation-delay: .8s; }
+@keyframes drawCheck { to { stroke-dashoffset: 0; } }
+
+.check-body {}
+.check-headline {
+  font-family: 'Raleway', sans-serif;
+  font-size: .92rem;
+  font-weight: 900;
+  color: #0a1520;
+  line-height: 1.25;
+  display: block;
+}
+.check-item:nth-child(1) .check-headline { color: #145a32; }
+.check-item:nth-child(2) .check-headline { color: #0d3a5c; }
+.check-item:nth-child(3) .check-headline { color: #0a2a4a; }
+
+.check-sub {
+  font-size: .71rem;
+  font-weight: 700;
+  color: #1a2a3a;
+  margin-top: 3px;
+  line-height: 1.5;
+  display: block;
+}
+
+/* ── EVIDENCE ROW ── */
+.evidence-row {
+  display: flex;
+  gap: 7px;
+  opacity: 0;
+  animation: fadeUp .4s ease .35s forwards;
+}
+.ev-card {
+  flex: 1;
+  background: #fff;
+  border-radius: 9px;
+  padding: 10px 8px;
+  text-align: center;
+  box-shadow: 0 1px 6px rgba(0,0,0,.09);
+  border-top: 4px solid #1e3a5f;
+}
+.ev-val {
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.55rem;
+  font-weight: 900;
+  color: #0a1520;
+  line-height: 1;
+}
+.ev-lbl {
+  font-size: .68rem;
+  font-weight: 800;
+  color: #1a2a3a;
+  text-transform: uppercase;
+  letter-spacing: .6px;
+  margin-top: 4px;
+}
+
+/* ── FUTURE RESEARCH ── */
+.future {
+  background: #fff;
+  border-radius: 10px;
+  padding: 11px 13px;
+  box-shadow: 0 1px 6px rgba(0,0,0,.09);
+  border-top: 3px solid #1e3a5f;
+  opacity: 0;
+  animation: fadeUp .4s ease .48s forwards;
+}
+
+.future-nodes {
+  display: flex;
+  gap: 0;
+  align-items: stretch;
+  position: relative;
+}
+/* Connecting line */
+.future-nodes::before {
+  content: '';
+  position: absolute;
+  top: 22px;
+  left: 22px;
+  right: 22px;
+  height: 2px;
+  background: #c0ccd8;
+  z-index: 0;
+}
+.fn-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+  z-index: 1;
+}
+.fn-dot {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid #1e3a5f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+.fn-label {
+  font-size: .68rem;
+  font-weight: 800;
+  color: #0a1520;
+  text-align: center;
+  line-height: 1.35;
+}
+
+/* ── CREDIT ── */
+.credit {
+  background: #1e3a5f;
+  border-radius: 8px;
+  padding: 9px 14px;
+  text-align: center;
+  opacity: 0;
+  animation: fadeUp .4s ease .6s forwards;
+}
+.credit p {
+  font-size: .7rem;
+  font-weight: 700;
+  color: #c8ddef;
+  line-height: 1.5;
+}
+.credit strong {
+  color: #fff;
+  font-weight: 900;
+}
+</style>
+</head>
+<body>
+
+<div class="title-bar">
+  <h1>🎯 Conclusion</h1>
+  <p>The Verdict — Key Takeaways</p>
+</div>
+
+<!-- VERDICT BANNER -->
+<div class="verdict">
+  <div class="verdict-icon">🏆</div>
+  <div class="verdict-text">
+    VR-based construction safety training produces
+    <span>statistically significant</span> and
+    <span>practically meaningful</span> learning gains.
+  </div>
+</div>
+
+<!-- CHECKLIST -->
+<div>
+  <div class="sec-label">✅ Key Takeaways</div>
+  <div class="checklist">
+
+    <div class="check-item">
+      <div class="check-circle">
+        <svg viewBox="0 0 18 18">
+          <polyline class="checkpath" points="3,10 7,14 15,5"/>
+        </svg>
+      </div>
+      <div class="check-body">
+        <span class="check-headline">Statistically Significant Learning Gains</span>
+        <span class="check-sub">Pooled d = 0.815; adjusted d = 0.55 — both exceed the threshold for practical significance</span>
+      </div>
+    </div>
+
+    <div class="check-item">
+      <div class="check-circle">
+        <svg viewBox="0 0 18 18">
+          <polyline class="checkpath" points="3,10 7,14 15,5"/>
+        </svg>
+      </div>
+      <div class="check-body">
+        <span class="check-headline">Practically Meaningful Results</span>
+        <span class="check-sub">10–18% improvement in hazard recognition, safety behavior, and learning outcomes over traditional methods</span>
+      </div>
+    </div>
+
+    <div class="check-item">
+      <div class="check-circle">
+        <svg viewBox="0 0 18 18">
+          <polyline class="checkpath" points="3,10 7,14 15,5"/>
+        </svg>
+      </div>
+      <div class="check-body">
+        <span class="check-headline">Consistently Favors VR Over Traditional Methods</span>
+        <span class="check-sub">Findings hold across all 9 studies (628 participants, 2010–2025), even after conservative shrinkage correction</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- EVIDENCE NUMBERS -->
+<div>
+  <div class="sec-label">📊 Evidence Summary</div>
+  <div class="evidence-row">
+    <div class="ev-card">
+      <div class="ev-val">9</div>
+      <div class="ev-lbl">Studies</div>
+    </div>
+    <div class="ev-card">
+      <div class="ev-val">628</div>
+      <div class="ev-lbl">Participants</div>
+    </div>
+    <div class="ev-card">
+      <div class="ev-val">d=0.55</div>
+      <div class="ev-lbl">Adj. Effect</div>
+    </div>
+    <div class="ev-card">
+      <div class="ev-val">+18%</div>
+      <div class="ev-lbl">Max Gain</div>
+    </div>
+  </div>
+</div>
+
+<!-- FUTURE RESEARCH TIMELINE -->
+<div class="future">
+  <div class="sec-label">🔭 Future Research Directions</div>
+  <div class="future-nodes">
+    <div class="fn-item">
+      <div class="fn-dot">⏳</div>
+      <div class="fn-label">Long-Term Transfer Studies</div>
+    </div>
+    <div class="fn-item">
+      <div class="fn-dot">📐</div>
+      <div class="fn-label">Standardized Protocols</div>
+    </div>
+    <div class="fn-item">
+      <div class="fn-dot">🌍</div>
+      <div class="fn-label">Equitable VR Access</div>
+    </div>
+  </div>
+</div>
+
+<!-- CREDIT -->
+<div class="credit">
+  <p><strong>Moon, J. &amp; Awoyemi, I.D.</strong><br>
+  The University of Alabama · Instructional Technology &amp; Civil Engineering Safety</p>
+</div>
+
+</body>
+</html>

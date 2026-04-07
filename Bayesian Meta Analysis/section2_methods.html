@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Framework & Methods</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@700;800;900&family=Open+Sans:wght@500;600;700&display=swap');
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  background: #f5f6f8;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 14px;
+  max-width: 400px;
+  margin: 0 auto;
+  gap: 10px;
+}
+
+/* ── TITLE ── */
+.title-bar {
+  background: #1a3a5f;
+  border-radius: 10px;
+  padding: 11px 16px;
+}
+.title-bar h1 {
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: #fff;
+}
+.title-bar p {
+  font-size: .72rem;
+  color: #a8c4e0;
+  margin-top: 2px;
+  font-weight: 600;
+}
+
+/* ── SECTION LABEL ── */
+.sec-label {
+  font-size: .7rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #0d2a4a;
+  margin-bottom: 7px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.sec-label::after {
+  content: '';
+  flex: 1;
+  height: 2px;
+  background: #c0ccd8;
+  border-radius: 2px;
+}
+
+/* ── THEORY PILLARS ── */
+.pillars {
+  display: flex;
+  gap: 7px;
+}
+.pillar {
+  flex: 1;
+  background: #fff;
+  border-radius: 8px;
+  padding: 10px 8px;
+  text-align: center;
+  box-shadow: 0 1px 5px rgba(0,0,0,.07);
+  border-top: 3px solid #1a3a5f;
+  opacity: 0;
+  animation: fadeUp .4s ease forwards;
+}
+.pillar:nth-child(1){ animation-delay:.05s }
+.pillar:nth-child(2){ animation-delay:.13s }
+.pillar:nth-child(3){ animation-delay:.21s }
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(8px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.pillar-icon { font-size: 1.5rem; display: block; margin-bottom: 5px; }
+.pillar-name {
+  font-family: 'Raleway', sans-serif;
+  font-size: .82rem;
+  font-weight: 900;
+  color: #0d1a2a;
+  line-height: 1.3;
+}
+.pillar-sub {
+  font-size: .68rem;
+  color: #3a4a5a;
+  margin-top: 3px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+/* ── FUNNEL DIAGRAM ── */
+.funnel-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  opacity: 0;
+  animation: fadeUp .4s ease .28s forwards;
+}
+
+.f-step {
+  width: 100%;
+  background: #fff;
+  border-radius: 7px;
+  padding: 9px 13px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 1px 4px rgba(0,0,0,.07);
+  border-left: 4px solid;
+  margin-bottom: 2px;
+  transition: box-shadow .2s;
+}
+.f-step:hover { box-shadow: 0 3px 10px rgba(0,0,0,.12); }
+
+/* Narrowing widths */
+.f-step:nth-child(1) { width: 100%; border-color: #2e86c1; }
+.f-step:nth-child(2) { width: 93%;  border-color: #2874a6; }
+.f-step:nth-child(3) { width: 84%;  border-color: #1f618d; }
+.f-step:nth-child(4) { width: 74%;  border-color: #1a5276; }
+.f-step:nth-child(5) { width: 62%;  border-color: #154360;
+  background: #eaf2fb; border-left-width: 5px; }
+
+.f-left {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.f-icon { font-size: 1rem; flex-shrink: 0; }
+.f-text-wrap {}
+.f-title {
+  font-size: .84rem;
+  font-weight: 900;
+  color: #0d1a2a;
+  line-height: 1.2;
+}
+.f-sub {
+  font-size: .68rem;
+  color: #2c3e50;
+  font-weight: 700;
+  margin-top: 2px;
+}
+.f-badge {
+  font-size: .66rem;
+  font-weight: 900;
+  color: #0d2a4a;
+  background: #c8dff5;
+  padding: 4px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.f-step:nth-child(5) .f-badge {
+  background: #0d3a5c;
+  color: #fff;
+}
+
+/* Arrow between steps */
+.f-arrow {
+  font-size: .65rem;
+  color: #90a8c0;
+  text-align: center;
+  display: block;
+  margin: 1px auto;
+  line-height: 1;
+}
+
+/* ── RESULT + METHOD ROW ── */
+.bottom-row {
+  display: flex;
+  gap: 8px;
+  opacity: 0;
+  animation: fadeUp .4s ease .5s forwards;
+}
+.result-card {
+  flex: 1;
+  background: #fff;
+  border-radius: 9px;
+  padding: 10px 11px;
+  text-align: center;
+  box-shadow: 0 1px 5px rgba(0,0,0,.07);
+  border-top: 3px solid #154360;
+}
+.result-card .rc-num {
+  font-family: 'Raleway', sans-serif;
+  font-size: 2rem;
+  font-weight: 900;
+  color: #0d2a4a;
+  line-height: 1;
+}
+.result-card .rc-lbl {
+  font-size: .7rem;
+  font-weight: 800;
+  color: #2c3e50;
+  text-transform: uppercase;
+  letter-spacing: .7px;
+  margin-top: 4px;
+}
+
+.method-card {
+  flex: 2;
+  background: #eaf2fb;
+  border-radius: 9px;
+  padding: 10px 12px;
+  box-shadow: 0 1px 5px rgba(0,0,0,.07);
+  border-left: 4px solid #1a5276;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.method-card .mc-icon { font-size: 1.3rem; flex-shrink: 0; }
+.method-card .mc-text {
+  font-size: .76rem;
+  font-weight: 700;
+  color: #0d1a2a;
+  line-height: 1.5;
+}
+.method-card .mc-text strong {
+  color: #0a2a4a;
+  font-weight: 900;
+  display: block;
+  margin-bottom: 2px;
+  font-size: .8rem;
+}
+</style>
+</head>
+<body>
+
+<div class="title-bar">
+  <h1>⚙️ Framework &amp; Methods</h1>
+  <p>Theoretical Grounding &amp; Systematic Search</p>
+</div>
+
+<!-- THEORY PILLARS -->
+<div>
+  <div class="sec-label">📚 Theoretical Framework</div>
+  <div class="pillars">
+    <div class="pillar">
+      <span class="pillar-icon">🔄</span>
+      <div class="pillar-name">Experiential Learning</div>
+      <div class="pillar-sub">Learning through doing &amp; reflection</div>
+    </div>
+    <div class="pillar">
+      <span class="pillar-icon">🌍</span>
+      <div class="pillar-name">Situated Cognition</div>
+      <div class="pillar-sub">Knowledge in real-world context</div>
+    </div>
+    <div class="pillar">
+      <span class="pillar-icon">🧠</span>
+      <div class="pillar-name">Embodied Cognition</div>
+      <div class="pillar-sub">Mind–body–environment interaction</div>
+    </div>
+  </div>
+</div>
+
+<!-- SEARCH FUNNEL -->
+<div>
+  <div class="sec-label">🔍 Systematic Search &amp; Screening Funnel</div>
+  <div class="funnel-wrap">
+
+    <div class="f-step">
+      <div class="f-left">
+        <span class="f-icon">🗄️</span>
+        <div class="f-text-wrap">
+          <div class="f-title">Database Search</div>
+          <div class="f-sub">Scopus &amp; Web of Science</div>
+        </div>
+      </div>
+      <span class="f-badge">All Records</span>
+    </div>
+    <span class="f-arrow">▼</span>
+
+    <div class="f-step">
+      <div class="f-left">
+        <span class="f-icon">📅</span>
+        <div class="f-text-wrap">
+          <div class="f-title">Date Filter</div>
+          <div class="f-sub">Publications 2010–2025</div>
+        </div>
+      </div>
+      <span class="f-badge">15-Year Span</span>
+    </div>
+    <span class="f-arrow">▼</span>
+
+    <div class="f-step">
+      <div class="f-left">
+        <span class="f-icon">📋</span>
+        <div class="f-text-wrap">
+          <div class="f-title">Title &amp; Abstract Screening</div>
+          <div class="f-sub">VR + Construction Safety + Quantitative</div>
+        </div>
+      </div>
+      <span class="f-badge">Relevant</span>
+    </div>
+    <span class="f-arrow">▼</span>
+
+    <div class="f-step">
+      <div class="f-left">
+        <span class="f-icon">📄</span>
+        <div class="f-text-wrap">
+          <div class="f-title">Full-Text Review</div>
+          <div class="f-sub">Comparison group + quantitative outcomes</div>
+        </div>
+      </div>
+      <span class="f-badge">Eligible</span>
+    </div>
+    <span class="f-arrow">▼</span>
+
+    <div class="f-step">
+      <div class="f-left">
+        <span class="f-icon">✅</span>
+        <div class="f-text-wrap">
+          <div class="f-title">Final Included Studies</div>
+          <div class="f-sub">Entered meta-analysis</div>
+        </div>
+      </div>
+      <span class="f-badge">n = 9</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- RESULT + METHOD -->
+<div class="bottom-row">
+  <div class="result-card">
+    <div class="rc-num">9</div>
+    <div class="rc-lbl">Studies</div>
+  </div>
+  <div class="result-card">
+    <div class="rc-num">628</div>
+    <div class="rc-lbl">Participants</div>
+  </div>
+  <div class="method-card">
+    <span class="mc-icon">📐</span>
+    <div class="mc-text">
+      <strong>Bayesian Random-Effects Meta-Analysis</strong> with shrinkage adjustment for publication bias
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

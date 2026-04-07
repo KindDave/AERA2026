@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>IVR Feedback Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@700;800;900&family=Open+Sans:wght@500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #f5f6f8;
+    font-family: 'Open Sans', sans-serif;
+    max-width: 420px;
+    margin: 0 auto;
+    padding: 14px 12px 22px;
+    color: #0a1520;
+  }
+
+  /* ── POSTER TITLE ── */
+  .poster-title {
+    background: #1e3a5f;
+    color: #fff;
+    border-radius: 10px;
+    padding: 12px 14px 10px;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  .poster-title .tag {
+    font-size: .6rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: #93b8d8;
+    margin-bottom: 4px;
+  }
+  .poster-title h1 {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1rem;
+    font-weight: 900;
+    line-height: 1.3;
+    color: #fff;
+  }
+  .poster-title .sub {
+    font-size: .68rem;
+    font-weight: 600;
+    color: #b8d4ec;
+    margin-top: 5px;
+  }
+
+  /* ── SECTION LABEL ── */
+  .sec-label {
+    font-family: 'Raleway', sans-serif;
+    font-size: .62rem;
+    font-weight: 900;
+    letter-spacing: .11em;
+    text-transform: uppercase;
+    color: #1e3a5f;
+    margin: 14px 0 6px;
+    padding-left: 4px;
+    border-left: 3px solid #1e3a5f;
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: #fff;
+    border-radius: 9px;
+    padding: 12px 13px;
+    margin-bottom: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.07);
+  }
+
+  /* ── FLOW NODES (background) ── */
+  .flow-wrap { position: relative; padding-left: 36px; }
+  .flow-spine {
+    position: absolute;
+    left: 15px;
+    top: 18px;
+    bottom: 18px;
+    width: 3px;
+    background: linear-gradient(to bottom, #e84040, #e88c00, #1e9e6b, #1e3a5f);
+    border-radius: 3px;
+  }
+  .flow-node {
+    position: relative;
+    margin-bottom: 9px;
+    opacity: 0;
+    transform: translateY(14px);
+    animation: fadeUp .5s ease forwards;
+  }
+  .flow-node:nth-child(1) { animation-delay: .1s; }
+  .flow-node:nth-child(2) { animation-delay: .22s; }
+  .flow-node:nth-child(3) { animation-delay: .34s; }
+  .flow-node:nth-child(4) { animation-delay: .46s; }
+
+  .node-dot {
+    position: absolute;
+    left: -28px;
+    top: 12px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .85rem;
+    border: 2.5px solid #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,.15);
+  }
+  .node-red   { background: #ffeaea; border-color: #e84040 !important; }
+  .node-amber { background: #fff4e0; border-color: #e88c00 !important; }
+  .node-green { background: #e5f7ef; border-color: #1e9e6b !important; }
+  .node-navy  { background: #e8eef6; border-color: #1e3a5f !important; }
+
+  .node-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 9px 11px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.07);
+  }
+  .node-card.red   { border-top: 3px solid #e84040; border-left: 4px solid #e84040; }
+  .node-card.amber { border-top: 3px solid #e88c00; border-left: 4px solid #e88c00; }
+  .node-card.green { border-top: 3px solid #1e9e6b; border-left: 4px solid #1e9e6b; }
+  .node-card.navy  { border-top: 3px solid #1e3a5f; border-left: 4px solid #1e3a5f; }
+
+  .node-headline {
+    font-family: 'Raleway', sans-serif;
+    font-size: .82rem;
+    font-weight: 900;
+    color: #0a1520;
+    margin-bottom: 4px;
+  }
+  .node-headline.red   { color: #a81818; }
+  .node-headline.amber { color: #7a4800; }
+  .node-headline.green { color: #0d5e3a; }
+  .node-headline.navy  { color: #0d2a4a; }
+
+  .node-text {
+    font-size: .72rem;
+    font-weight: 600;
+    color: #1a2a3a;
+    line-height: 1.45;
+  }
+
+  /* ── THEORY PILLARS ── */
+  .pillars {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 7px;
+    margin-bottom: 8px;
+  }
+  .pillar {
+    background: #fff;
+    border-radius: 9px;
+    padding: 10px 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.07);
+    border-top: 3px solid #1e3a5f;
+    border-left: 4px solid #1e3a5f;
+    opacity: 0;
+    animation: fadeUp .5s ease forwards;
+  }
+  .pillar:nth-child(1) { animation-delay: .1s; border-color: #1e5fa0; }
+  .pillar:nth-child(2) { animation-delay: .2s; border-color: #1e3a5f; }
+  .pillar-icon { font-size: 1.2rem; margin-bottom: 4px; display: block; }
+  .pillar-name {
+    font-family: 'Raleway', sans-serif;
+    font-size: .75rem;
+    font-weight: 900;
+    color: #0d2a4a;
+    margin-bottom: 4px;
+    line-height: 1.2;
+  }
+  .pillar-authors {
+    font-size: .6rem;
+    font-weight: 700;
+    color: #3a6a9a;
+    margin-bottom: 5px;
+  }
+  .pillar-points { list-style: none; }
+  .pillar-points li {
+    font-size: .68rem;
+    font-weight: 600;
+    color: #1a2a3a;
+    line-height: 1.4;
+    padding: 2px 0 2px 10px;
+    position: relative;
+    border-bottom: 1px solid #f0f2f5;
+  }
+  .pillar-points li:last-child { border-bottom: none; }
+  .pillar-points li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: #1e5fa0;
+    font-size: .62rem;
+    font-weight: 900;
+  }
+
+  /* ── ENTROPY HIGHLIGHT ── */
+  .entropy-card {
+    background: linear-gradient(135deg, #0d2a4a 0%, #1e5fa0 100%);
+    border-radius: 10px;
+    padding: 13px 14px;
+    margin-bottom: 8px;
+    box-shadow: 0 2px 8px rgba(30,58,95,.25);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    animation: fadeUp .5s ease .1s forwards;
+  }
+  .entropy-card::after {
+    content: '';
+    position: absolute;
+    right: -18px; top: -18px;
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.06);
+  }
+  .entropy-tag {
+    font-size: .58rem;
+    font-weight: 800;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: #93b8d8;
+    margin-bottom: 5px;
+  }
+  .entropy-headline {
+    font-family: 'Raleway', sans-serif;
+    font-size: .96rem;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.25;
+    margin-bottom: 7px;
+  }
+  .entropy-headline span {
+    background: rgba(255,215,0,.25);
+    color: #ffd700;
+    border-radius: 3px;
+    padding: 0 4px;
+  }
+  .entropy-sub {
+    font-size: .7rem;
+    font-weight: 600;
+    color: #b8d4ec;
+    line-height: 1.45;
+  }
+
+  /* ── ENTROPY TIMELINE ── */
+  .timeline-wrap {
+    background: #fff;
+    border-radius: 9px;
+    padding: 11px 12px;
+    margin-bottom: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.07);
+  }
+  .tl-title {
+    font-family: 'Raleway', sans-serif;
+    font-size: .76rem;
+    font-weight: 900;
+    color: #0d2a4a;
+    margin-bottom: 8px;
+    text-align: center;
+  }
+  .tl-track {
+    position: relative;
+    height: 46px;
+    margin: 0 6px 20px;
+  }
+  .tl-line {
+    position: absolute;
+    top: 18px;
+    left: 0; right: 0;
+    height: 4px;
+    background: #e8eef6;
+    border-radius: 2px;
+  }
+  .tl-line-fill {
+    position: absolute;
+    top: 18px;
+    left: 0;
+    width: 0;
+    height: 4px;
+    background: linear-gradient(to right, #1e5fa0, #e84040);
+    border-radius: 2px;
+    transition: width 1.2s ease .3s;
+  }
+  /* tick marks */
+  .tl-tick {
+    position: absolute;
+    top: 12px;
+    width: 2px;
+    height: 16px;
+    background: #c8d6e5;
+    transform: translateX(-50%);
+  }
+  .tl-tick-label {
+    position: absolute;
+    top: 30px;
+    font-size: .56rem;
+    font-weight: 700;
+    color: #3a6a9a;
+    transform: translateX(-50%);
+    white-space: nowrap;
+  }
+  /* peak zone */
+  .tl-peak-zone {
+    position: absolute;
+    top: 10px;
+    height: 20px;
+    background: rgba(232,64,64,.15);
+    border: 1.5px solid rgba(232,64,64,.5);
+    border-radius: 3px;
+  }
+  .tl-peak-label {
+    position: absolute;
+    top: 0px;
+    font-size: .6rem;
+    font-weight: 800;
+    color: #a81818;
+    white-space: nowrap;
+    transform: translateX(-50%);
+  }
+  .tl-dot {
+    position: absolute;
+    top: 10px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    border: 2.5px solid #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,.2);
+  }
+  .tl-legend {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .tl-leg-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: .61rem;
+    font-weight: 700;
+    color: #1a2a3a;
+  }
+  .tl-leg-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+  }
+
+  /* ── MECHANISM ROW ── */
+  .mech-row {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 8px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+  .mech-box {
+    flex: 1;
+    min-width: 72px;
+    background: #fff;
+    border-radius: 7px;
+    padding: 8px 6px;
+    text-align: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,.07);
+    border-top: 3px solid;
+  }
+  .mech-box:nth-child(1) { border-color: #1e5fa0; }
+  .mech-box:nth-child(3) { border-color: #e88c00; }
+  .mech-box:nth-child(5) { border-color: #e84040; }
+  .mech-box:nth-child(7) { border-color: #1e9e6b; }
+  .mech-icon { font-size: 1.1rem; display: block; margin-bottom: 3px; }
+  .mech-label {
+    font-family: 'Raleway', sans-serif;
+    font-size: .62rem;
+    font-weight: 900;
+    color: #0a1520;
+    line-height: 1.2;
+  }
+  .mech-arrow {
+    font-size: .9rem;
+    color: #3a6a9a;
+    font-weight: 900;
+    flex-shrink: 0;
+  }
+
+  /* ── STAT CHIPS ── */
+  .stat-row {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+  .stat-chip {
+    flex: 1;
+    background: #fff;
+    border-radius: 8px;
+    padding: 9px 7px;
+    text-align: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,.07);
+    border-top: 3px solid #1e3a5f;
+  }
+  .stat-chip:nth-child(1) { border-color: #1e5fa0; }
+  .stat-chip:nth-child(2) { border-color: #e84040; }
+  .stat-chip:nth-child(3) { border-color: #1e9e6b; }
+  .stat-num {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: #0d2a4a;
+    line-height: 1;
+  }
+  .stat-unit {
+    font-size: .58rem;
+    font-weight: 800;
+    color: #3a6a9a;
+    display: block;
+    margin-top: 2px;
+  }
+  .stat-desc {
+    font-size: .6rem;
+    font-weight: 700;
+    color: #1a2a3a;
+    margin-top: 3px;
+    line-height: 1.3;
+  }
+
+  /* ── PURPOSE CARD ── */
+  .purpose-card {
+    background: linear-gradient(135deg, #0d2a4a 0%, #1e5fa0 100%);
+    border-radius: 10px;
+    padding: 13px 14px 12px;
+    margin-bottom: 8px;
+    box-shadow: 0 2px 8px rgba(30,58,95,.25);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    animation: fadeUp .5s ease .1s forwards;
+  }
+  .purpose-card::before {
+    content: '';
+    position: absolute;
+    right: -20px; bottom: -20px;
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.05);
+  }
+  .purpose-tag {
+    font-size: .58rem;
+    font-weight: 800;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: #93b8d8;
+    margin-bottom: 5px;
+  }
+  .purpose-headline {
+    font-family: 'Raleway', sans-serif;
+    font-size: .9rem;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.3;
+    margin-bottom: 7px;
+  }
+  .purpose-body {
+    font-size: .69rem;
+    font-weight: 600;
+    color: #b8d4ec;
+    line-height: 1.5;
+  }
+  .purpose-body strong { color: #ffd700; }
+
+  /* ── RQ RADIAL DIAGRAM ── */
+  .rq-wrap {
+    background: #fff;
+    border-radius: 10px;
+    padding: 12px 10px 14px;
+    margin-bottom: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.07);
+    position: relative;
+  }
+  .rq-wrap-title {
+    font-family: 'Raleway', sans-serif;
+    font-size: .72rem;
+    font-weight: 900;
+    color: #0d2a4a;
+    text-align: center;
+    margin-bottom: 10px;
+    letter-spacing: .04em;
+  }
+  .rq-diagram {
+    position: relative;
+    width: 100%;
+    height: 300px;
+  }
+  .rq-svg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+  }
+  .rq-center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 92px;
+    background: #1e3a5f;
+    border-radius: 50px;
+    padding: 9px 8px;
+    text-align: center;
+    z-index: 2;
+    box-shadow: 0 2px 8px rgba(30,58,95,.3);
+  }
+  .rq-center-icon { font-size: 1rem; display: block; margin-bottom: 2px; }
+  .rq-center-label {
+    font-family: 'Raleway', sans-serif;
+    font-size: .62rem;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.2;
+  }
+  .rq-card {
+    position: absolute;
+    width: 142px;
+    background: #fff;
+    border-radius: 8px;
+    padding: 8px 9px;
+    box-shadow: 0 2px 6px rgba(0,0,0,.1);
+    z-index: 2;
+    opacity: 0;
+    animation: fadeUp .5s ease forwards;
+  }
+  .rq-card:nth-child(3) { animation-delay: .15s; }
+  .rq-card:nth-child(4) { animation-delay: .25s; }
+  .rq-card:nth-child(5) { animation-delay: .35s; }
+  .rq-card:nth-child(6) { animation-delay: .45s; }
+
+  .rq-1 { top: 0;    left: 0;    border-top: 3px solid #1e5fa0; border-left: 3px solid #1e5fa0; }
+  .rq-2 { top: 0;    right: 0;   border-top: 3px solid #1e9e6b; border-right: 3px solid #1e9e6b; }
+  .rq-3 { bottom: 0; left: 0;    border-bottom: 3px solid #e88c00; border-left: 3px solid #e88c00; }
+  .rq-4 { bottom: 0; right: 0;   border-bottom: 3px solid #e84040; border-right: 3px solid #e84040; }
+
+  .rq-num {
+    font-family: 'Raleway', sans-serif;
+    font-size: .6rem;
+    font-weight: 900;
+    border-radius: 4px;
+    padding: 1px 5px;
+    display: inline-block;
+    margin-bottom: 4px;
+    color: #fff;
+  }
+  .rq-1 .rq-num { background: #1e5fa0; }
+  .rq-2 .rq-num { background: #1e9e6b; }
+  .rq-3 .rq-num { background: #e88c00; }
+  .rq-4 .rq-num { background: #e84040; }
+
+  .rq-text {
+    font-size: .64rem;
+    font-weight: 600;
+    color: #1a2a3a;
+    line-height: 1.4;
+  }
+  .rq-keyword {
+    font-family: 'Raleway', sans-serif;
+    font-size: .62rem;
+    font-weight: 900;
+    color: #0d2a4a;
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<!-- POSTER TITLE -->
+<div class="poster-title">
+  <div class="tag">Instructional Technology · IVR Research</div>
+  <h1>Microgenetic Feedback in Immersive VR:<br>Behavioral Shifts & Learner Profiles</h1>
+  <div class="sub">Analyzing real-time interaction logs in IVR training environments</div>
+</div>
+
+<!-- ── BACKGROUND ── -->
+<div class="sec-label">Background &amp; Rationale</div>
+<div class="flow-wrap">
+  <div class="flow-spine"></div>
+
+  <div class="flow-node">
+    <div class="node-dot node-red">⚠️</div>
+    <div class="node-card red">
+      <div class="node-headline red">The Problem</div>
+      <div class="node-text">Instructional feedback is <strong>critical for guiding behavioral strategies</strong> and promoting self-regulation — yet its <em>immediate, microgenetic impact</em> in IVR training remains underexplored.</div>
+    </div>
+  </div>
+
+  <div class="flow-node">
+    <div class="node-dot node-amber">🔍</div>
+    <div class="node-card amber">
+      <div class="node-headline amber">The Gap</div>
+      <div class="node-text">Most feedback research captures <strong>macro-level outcomes</strong>. The granular, moment-to-moment behavioral response to feedback — especially under cognitive load in IVR — is rarely studied.</div>
+    </div>
+  </div>
+
+  <div class="flow-node">
+    <div class="node-dot node-green">🥽</div>
+    <div class="node-card green">
+      <div class="node-headline green">Why IVR?</div>
+      <div class="node-text">IVR provides <strong>high-fidelity simulations</strong> and <em>precise behavioral telemetry</em>, enabling granular analysis of learning processes through rich interaction log data.</div>
+    </div>
+  </div>
+
+  <div class="flow-node">
+    <div class="node-dot node-navy">🎯</div>
+    <div class="node-card navy">
+      <div class="node-headline navy">Study Objective</div>
+      <div class="node-text">Examine how learners <strong>respond to feedback in real-time</strong> within IVR, analyzing interaction logs to identify behavioral shifts and learner profiles post-feedback.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── PURPOSE ── -->
+<div class="sec-label">Study Purpose</div>
+<div class="purpose-card">
+  <div class="purpose-tag">🎯 Purpose of the Study</div>
+  <div class="purpose-headline">Micro-Level Behavioral Change Following In-VR Feedback</div>
+  <div class="purpose-body">
+    Investigating <strong>how rapidly, how profoundly, and for whom</strong> feedback reshapes behavioral pathways in immersive VR training environments.<br><br>
+    This work presents the <strong>first design-oriented micro-window model</strong> of feedback dynamics in IVR — yielding practical timing principles for adaptive feedback system design.
+  </div>
+</div>
+
+<!-- ── RESEARCH QUESTIONS RADIAL ── -->
+<div class="sec-label">Research Questions</div>
+<div class="rq-wrap">
+  <div class="rq-wrap-title">Four Guiding Research Questions</div>
+  <div class="rq-diagram" id="rqDiagram">
+
+    <!-- SVG connector lines (drawn by JS after layout) -->
+    <svg class="rq-svg" id="rqSvg" viewBox="0 0 390 300" preserveAspectRatio="xMidYMid meet"></svg>
+
+    <!-- Center Hub -->
+    <div class="rq-center">
+      <span class="rq-center-icon">❓</span>
+      <div class="rq-center-label">Research<br>Questions</div>
+    </div>
+
+    <!-- RQ1 — top-left -->
+    <div class="rq-card rq-1">
+      <span class="rq-num">RQ 1</span>
+      <span class="rq-keyword">Behavioral Timing</span>
+      <div class="rq-text">How does immediate in-VR feedback influence behavioral strategies within a <strong>30–60 sec window</strong>?</div>
+    </div>
+
+    <!-- RQ2 — top-right -->
+    <div class="rq-card rq-2">
+      <span class="rq-num">RQ 2</span>
+      <span class="rq-keyword">Predictive Power</span>
+      <div class="rq-text">Do <strong>behavioral shifts & entropy changes</strong> predict decision quality improvements post-feedback?</div>
+    </div>
+
+    <!-- RQ3 — bottom-left -->
+    <div class="rq-card rq-3">
+      <span class="rq-num">RQ 3</span>
+      <span class="rq-keyword">Learner Profiles</span>
+      <div class="rq-text">Can <strong>distinct learner profiles</strong> be identified based on feedback responsiveness and strategic shift patterns?</div>
+    </div>
+
+    <!-- RQ4 — bottom-right -->
+    <div class="rq-card rq-4">
+      <span class="rq-num">RQ 4</span>
+      <span class="rq-keyword">Individual Variation</span>
+      <div class="rq-text">How do feedback effects on <strong>task success & error reduction</strong> vary across learner types?</div>
+    </div>
+
+  </div><!-- end rq-diagram -->
+</div><!-- end rq-wrap -->
+
+<!-- ── THEORETICAL FRAMEWORK ── -->
+<div class="sec-label">Theoretical Framework</div>
+<div class="pillars">
+  <div class="pillar" style="border-top-color:#1e5fa0;border-left-color:#1e5fa0;">
+    <span class="pillar-icon">🧠</span>
+    <div class="pillar-name">Self-Regulated Learning (SRL) Theory</div>
+    <div class="pillar-authors">Zimmerman, 2000 · Pintrich, 2004 · Winne, 2017</div>
+    <ul class="pillar-points">
+      <li>Feedback = <strong>regulatory input</strong>, not mere correction</li>
+      <li>Shifts learners from <strong>passive monitoring → active behavioral control</strong></li>
+      <li>IVR telemetry enables <em>real-time tracking</em> of these strategic shifts</li>
+    </ul>
+  </div>
+  <div class="pillar" style="border-top-color:#1e3a5f;border-left-color:#1e3a5f;">
+    <span class="pillar-icon">⚡</span>
+    <div class="pillar-name">Adaptive Feedback Theory</div>
+    <div class="pillar-authors">Kulhavy &amp; Wager, 1993</div>
+    <ul class="pillar-points">
+      <li>Precisely <strong>timed feedback</strong> during behavioral uncertainty is most powerful</li>
+      <li>Catalyzes <strong>strategic reorganization</strong> — not just knowledge gain</li>
+      <li>Entropy peak = empirical signature of this <em>reorganization moment</em></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ── KEY FINDING: ENTROPY ── -->
+<div class="sec-label">Key Empirical Finding</div>
+<div class="entropy-card">
+  <div class="entropy-tag">📊 Signature Discovery</div>
+  <div class="entropy-headline">Entropy Peak at <span>38–46 sec</span> Post-Feedback</div>
+  <div class="entropy-sub">The moment of peak behavioral uncertainty — measured via interaction log entropy — is the direct empirical signature of strategic reorganization catalyzed by precisely timed feedback.</div>
+</div>
+
+<!-- Entropy Timeline -->
+<div class="timeline-wrap">
+  <div class="tl-title">Behavioral Entropy Over Time Post-Feedback</div>
+  <div class="tl-track" id="tlTrack">
+    <div class="tl-line"></div>
+    <div class="tl-line-fill" id="tlFill"></div>
+    <!-- ticks at 0, 20, 38, 46, 60, 90 sec -->
+    <div class="tl-tick" style="left:0%"></div>
+    <div class="tl-tick-label" style="left:0%">0s</div>
+    <div class="tl-tick" style="left:22%"></div>
+    <div class="tl-tick-label" style="left:22%">20s</div>
+    <div class="tl-tick" style="left:42%"></div>
+    <div class="tl-tick" style="left:51%"></div>
+    <div class="tl-tick" style="left:67%"></div>
+    <div class="tl-tick-label" style="left:67%">60s</div>
+    <div class="tl-tick" style="left:100%"></div>
+    <div class="tl-tick-label" style="left:100%">90s</div>
+    <!-- peak zone -->
+    <div class="tl-peak-zone" style="left:42%; width:9%;"></div>
+    <div class="tl-peak-label" style="left:46.5%;">ENTROPY PEAK</div>
+    <!-- dots -->
+    <div class="tl-dot" style="left:0%; background:#3a7abf; top:11px;"></div>
+    <div class="tl-dot" style="left:22%; background:#5a9ad0; top:9px;"></div>
+    <div class="tl-dot" style="left:46.5%; background:#e84040; top:4px; width:20px; height:20px;"></div>
+    <div class="tl-dot" style="left:67%; background:#1e9e6b; top:10px;"></div>
+    <div class="tl-dot" style="left:100%; background:#1e3a5f; top:12px;"></div>
+  </div>
+  <div class="tl-legend">
+    <div class="tl-leg-item"><div class="tl-leg-dot" style="background:#3a7abf"></div>Feedback Delivered</div>
+    <div class="tl-leg-item"><div class="tl-leg-dot" style="background:#e84040"></div>Entropy Peak (38–46s)</div>
+    <div class="tl-leg-item"><div class="tl-leg-dot" style="background:#1e9e6b"></div>Strategic Shift</div>
+    <div class="tl-leg-item"><div class="tl-leg-dot" style="background:#1e3a5f"></div>Stabilization</div>
+  </div>
+</div>
+
+<!-- ── MECHANISM FLOW ── -->
+<div class="sec-label">Proposed Mechanism</div>
+<div class="mech-row">
+  <div class="mech-box">
+    <span class="mech-icon">⚡</span>
+    <div class="mech-label">Feedback Delivered</div>
+  </div>
+  <div class="mech-arrow">→</div>
+  <div class="mech-box">
+    <span class="mech-icon">🌀</span>
+    <div class="mech-label">Behavioral Uncertainty</div>
+  </div>
+  <div class="mech-arrow">→</div>
+  <div class="mech-box">
+    <span class="mech-icon">📈</span>
+    <div class="mech-label">Entropy Peak</div>
+  </div>
+  <div class="mech-arrow">→</div>
+  <div class="mech-box">
+    <span class="mech-icon">🔄</span>
+    <div class="mech-label">Strategic Reorg.</div>
+  </div>
+</div>
+
+<!-- ── KEY STATS ── -->
+<div class="sec-label">Study at a Glance</div>
+<div class="stat-row">
+  <div class="stat-chip">
+    <div class="stat-num">38</div>
+    <span class="stat-unit">–46 sec</span>
+    <div class="stat-desc">Entropy peak window post-feedback</div>
+  </div>
+  <div class="stat-chip">
+    <div class="stat-num">IVR</div>
+    <span class="stat-unit">Telemetry</span>
+    <div class="stat-desc">High-resolution behavioral log analysis</div>
+  </div>
+  <div class="stat-chip">
+    <div class="stat-num">SRL</div>
+    <span class="stat-unit">+ AFT</span>
+    <div class="stat-desc">Dual theoretical framework</div>
+  </div>
+</div>
+
+<script>
+  window.addEventListener('load', () => {
+    // animate timeline fill
+    setTimeout(() => {
+      const fill = document.getElementById('tlFill');
+      if (fill) fill.style.width = '100%';
+    }, 300);
+
+    // draw RQ connector lines
+    drawRQLines();
+  });
+
+  function drawRQLines() {
+    const diagram  = document.getElementById('rqDiagram');
+    const svg      = document.getElementById('rqSvg');
+    const hub      = diagram.querySelector('.rq-center');
+    const cards    = diagram.querySelectorAll('.rq-card');
+    if (!svg || !hub || cards.length < 4) return;
+
+    const dRect = diagram.getBoundingClientRect();
+
+    function center(el) {
+      const r = el.getBoundingClientRect();
+      return {
+        x: r.left - dRect.left + r.width  / 2,
+        y: r.top  - dRect.top  + r.height / 2
+      };
+    }
+
+    const hubC = center(hub);
+    const W = dRect.width;
+    const H = dRect.height;
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    svg.innerHTML = '';
+
+    const colors = ['#1e5fa0','#1e9e6b','#e88c00','#e84040'];
+    cards.forEach((card, i) => {
+      const cC = center(card);
+      const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+      line.setAttribute('x1', hubC.x);
+      line.setAttribute('y1', hubC.y);
+      line.setAttribute('x2', cC.x);
+      line.setAttribute('y2', cC.y);
+      line.setAttribute('stroke', colors[i]);
+      line.setAttribute('stroke-width', '2');
+      line.setAttribute('stroke-dasharray', '5 3');
+      line.setAttribute('opacity', '0.6');
+      svg.appendChild(line);
+    });
+  }
+</script>
+</body>
+</html>

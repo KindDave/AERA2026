@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Purpose & Research Questions – IVR Feedback Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@700;800;900&family=Open+Sans:wght@500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #f5f6f8;
+    font-family: 'Open Sans', sans-serif;
+    max-width: 420px;
+    margin: 0 auto;
+    padding: 14px 12px 22px;
+    color: #0a1520;
+  }
+
+  /* ── SECTION LABEL ── */
+  .sec-label {
+    font-family: 'Raleway', sans-serif;
+    font-size: .72rem;
+    font-weight: 900;
+    letter-spacing: .11em;
+    text-transform: uppercase;
+    color: #1e3a5f;
+    margin: 0 0 7px;
+    padding-left: 5px;
+    border-left: 3px solid #1e3a5f;
+  }
+
+  /* ── PURPOSE CARD ── */
+  .purpose-card {
+    background: linear-gradient(135deg, #0d2a4a 0%, #1e5fa0 100%);
+    border-radius: 10px;
+    padding: 14px 15px 13px;
+    margin-bottom: 14px;
+    box-shadow: 0 3px 10px rgba(30,58,95,.28);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    animation: fadeUp .5s ease .05s forwards;
+  }
+  .purpose-card::before {
+    content: '';
+    position: absolute;
+    right: -24px; bottom: -24px;
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.05);
+  }
+  .purpose-card::after {
+    content: '';
+    position: absolute;
+    left: -16px; top: -16px;
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.04);
+  }
+  .purpose-tag {
+    font-size: .68rem;
+    font-weight: 800;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: #93b8d8;
+    margin-bottom: 7px;
+  }
+  .purpose-headline {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.3;
+    margin-bottom: 11px;
+  }
+  .purpose-divider {
+    height: 1px;
+    background: rgba(255,255,255,.15);
+    margin-bottom: 10px;
+  }
+  .purpose-bullets { list-style: none; }
+  .purpose-bullets li {
+    font-size: .84rem;
+    font-weight: 700;
+    color: #cce0f5;
+    line-height: 1.55;
+    padding: 5px 0 5px 16px;
+    position: relative;
+  }
+  .purpose-bullets li + li { border-top: 1px solid rgba(255,255,255,.08); }
+  .purpose-bullets li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: #ffd700;
+    font-weight: 900;
+    font-size: .76rem;
+  }
+  .purpose-bullets li strong { color: #ffd700; }
+
+  /* ── RQ SECTION LABEL ── */
+  .rq-sec-label {
+    font-family: 'Raleway', sans-serif;
+    font-size: .72rem;
+    font-weight: 900;
+    letter-spacing: .11em;
+    text-transform: uppercase;
+    color: #1e3a5f;
+    margin: 0 0 7px;
+    padding-left: 5px;
+    border-left: 3px solid #1e3a5f;
+  }
+
+  /* ── RQ RADIAL DIAGRAM ── */
+  .rq-wrap {
+    background: #fff;
+    border-radius: 10px;
+    padding: 12px 10px 14px;
+    box-shadow: 0 1px 5px rgba(0,0,0,.08);
+  }
+  .rq-wrap-title {
+    font-family: 'Raleway', sans-serif;
+    font-size: .88rem;
+    font-weight: 900;
+    color: #0d2a4a;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  .rq-diagram {
+    position: relative;
+    width: 100%;
+    height: 330px;
+  }
+  .rq-svg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    overflow: visible;
+  }
+
+  /* CENTER HUB */
+  .rq-center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    background: #1e3a5f;
+    border-radius: 12px;
+    padding: 12px 10px;
+    text-align: center;
+    z-index: 3;
+    box-shadow: 0 3px 12px rgba(30,58,95,.38);
+  }
+  .rq-center-icon { font-size: 1.3rem; display: block; margin-bottom: 4px; }
+  .rq-center-label {
+    font-family: 'Raleway', sans-serif;
+    font-size: .78rem;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.25;
+  }
+
+  /* RQ CARDS */
+  .rq-card {
+    position: absolute;
+    width: 148px;
+    background: #fff;
+    border-radius: 8px;
+    padding: 10px 11px;
+    box-shadow: 0 2px 7px rgba(0,0,0,.11);
+    z-index: 2;
+    opacity: 0;
+    animation: fadeUp .5s ease forwards;
+  }
+  .rq-card:nth-child(3) { animation-delay: .18s; }
+  .rq-card:nth-child(4) { animation-delay: .30s; }
+  .rq-card:nth-child(5) { animation-delay: .42s; }
+  .rq-card:nth-child(6) { animation-delay: .54s; }
+
+  /* position: top-left, top-right, bottom-left, bottom-right */
+  .rq-1 { top: 0;    left: 0;   border-top: 3px solid #1e5fa0; border-left: 3px solid #1e5fa0; }
+  .rq-2 { top: 0;    right: 0;  border-top: 3px solid #1e9e6b; border-right: 3px solid #1e9e6b; }
+  .rq-3 { bottom: 0; left: 0;   border-bottom: 3px solid #e88c00; border-left: 3px solid #e88c00; }
+  .rq-4 { bottom: 0; right: 0;  border-bottom: 3px solid #e84040; border-right: 3px solid #e84040; }
+
+  .rq-num {
+    font-family: 'Raleway', sans-serif;
+    font-size: .7rem;
+    font-weight: 900;
+    border-radius: 4px;
+    padding: 2px 7px;
+    display: inline-block;
+    margin-bottom: 5px;
+    color: #fff;
+  }
+  .rq-1 .rq-num { background: #1e5fa0; }
+  .rq-2 .rq-num { background: #1e9e6b; }
+  .rq-3 .rq-num { background: #e88c00; }
+  .rq-4 .rq-num { background: #e84040; }
+
+  .rq-keyword {
+    font-family: 'Raleway', sans-serif;
+    font-size: .76rem;
+    font-weight: 900;
+    color: #0d2a4a;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .rq-text {
+    font-size: .72rem;
+    font-weight: 700;
+    color: #1a2a3a;
+    line-height: 1.45;
+  }
+  .rq-text strong { color: #0d2a4a; font-weight: 900; }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── PURPOSE ── -->
+<div class="sec-label">Study Purpose</div>
+<div class="purpose-card">
+  <div class="purpose-tag">🎯 Purpose of the Study</div>
+  <div class="purpose-headline">Micro-Level Behavioral Change<br>Following In-VR Feedback</div>
+  <div class="purpose-divider"></div>
+  <ul class="purpose-bullets">
+    <li>Investigating <strong>how rapidly, how profoundly, and for whom</strong> feedback reshapes behavioral pathways in IVR training</li>
+    <li>Presents the <strong>first design-oriented micro-window model</strong> of feedback dynamics in IVR</li>
+    <li>Yields <strong>practical timing principles</strong> for adaptive feedback system design</li>
+  </ul>
+</div>
+
+<!-- ── RESEARCH QUESTIONS ── -->
+<div class="rq-sec-label">Research Questions</div>
+<div class="rq-wrap">
+  <div class="rq-wrap-title">Four Guiding Research Questions</div>
+
+  <div class="rq-diagram" id="rqDiagram">
+
+    <!-- SVG connector lines (drawn by JS) -->
+    <svg class="rq-svg" id="rqSvg"></svg>
+
+    <!-- Center Hub -->
+    <div class="rq-center" id="rqHub">
+      <span class="rq-center-icon">❓</span>
+      <div class="rq-center-label">Research<br>Questions</div>
+    </div>
+
+    <!-- RQ1 — top-left: Behavioral Timing -->
+    <div class="rq-card rq-1" id="rq1">
+      <span class="rq-num">RQ 1</span>
+      <span class="rq-keyword">Behavioral Timing</span>
+      <div class="rq-text">How does immediate in-VR feedback influence behavioral strategies within a <strong>30–60 sec window</strong>?</div>
+    </div>
+
+    <!-- RQ2 — top-right: Predictive Power -->
+    <div class="rq-card rq-2" id="rq2">
+      <span class="rq-num">RQ 2</span>
+      <span class="rq-keyword">Predictive Power</span>
+      <div class="rq-text">Do <strong>behavioral shifts &amp; entropy changes</strong> predict decision quality improvements post-feedback?</div>
+    </div>
+
+    <!-- RQ3 — bottom-left: Learner Profiles -->
+    <div class="rq-card rq-3" id="rq3">
+      <span class="rq-num">RQ 3</span>
+      <span class="rq-keyword">Learner Profiles</span>
+      <div class="rq-text">Can <strong>distinct learner profiles</strong> be identified based on feedback responsiveness and strategic shift patterns?</div>
+    </div>
+
+    <!-- RQ4 — bottom-right: Individual Variation -->
+    <div class="rq-card rq-4" id="rq4">
+      <span class="rq-num">RQ 4</span>
+      <span class="rq-keyword">Individual Variation</span>
+      <div class="rq-text">How do feedback effects on <strong>task success &amp; error reduction</strong> vary across learner types?</div>
+    </div>
+
+  </div><!-- end rq-diagram -->
+</div>
+
+<script>
+  function drawLines() {
+    const diagram = document.getElementById('rqDiagram');
+    const svg     = document.getElementById('rqSvg');
+    const hub     = document.getElementById('rqHub');
+    const cards   = ['rq1','rq2','rq3','rq4'].map(id => document.getElementById(id));
+    const colors  = ['#1e5fa0','#1e9e6b','#e88c00','#e84040'];
+
+    const dRect = diagram.getBoundingClientRect();
+
+    function mid(el) {
+      const r = el.getBoundingClientRect();
+      return {
+        x: r.left - dRect.left + r.width  / 2,
+        y: r.top  - dRect.top  + r.height / 2
+      };
+    }
+
+    const W = dRect.width;
+    const H = dRect.height;
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    svg.innerHTML = '';
+
+    const hubC = mid(hub);
+
+    cards.forEach((card, i) => {
+      const cC = mid(card);
+      // dashed line
+      const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+      line.setAttribute('x1', String(hubC.x));
+      line.setAttribute('y1', String(hubC.y));
+      line.setAttribute('x2', String(cC.x));
+      line.setAttribute('y2', String(cC.y));
+      line.setAttribute('stroke', colors[i]);
+      line.setAttribute('stroke-width', '2');
+      line.setAttribute('stroke-dasharray', '5 3');
+      line.setAttribute('opacity', '0.55');
+      svg.appendChild(line);
+
+      // dot at card end
+      const dot = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      dot.setAttribute('cx', String(cC.x));
+      dot.setAttribute('cy', String(cC.y));
+      dot.setAttribute('r', '4');
+      dot.setAttribute('fill', colors[i]);
+      dot.setAttribute('opacity', '0.7');
+      svg.appendChild(dot);
+    });
+  }
+
+  window.addEventListener('load', () => {
+    // slight delay so cards are fully laid out
+    setTimeout(drawLines, 120);
+  });
+</script>
+</body>
+</html>

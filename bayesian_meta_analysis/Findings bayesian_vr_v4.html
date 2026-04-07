@@ -1,0 +1,136 @@
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{font-family:Georgia,serif;padding:1rem 0}
+.header{background:#9E1B32;border-radius:10px;padding:1rem 1.4rem;margin-bottom:1rem;text-align:center}
+.header-tag{font-size:11px;font-weight:700;letter-spacing:.1em;color:#FADADD;font-family:Calibri,sans-serif;text-transform:uppercase;margin-bottom:.3rem}
+.header-title{font-size:17px;font-weight:700;color:#fff}
+
+.step{display:flex;align-items:center;gap:1.2rem;margin-bottom:.9rem;padding:1rem 1.1rem;border-radius:12px}
+.step.s1{background:#F9ECED;border:2px solid #9E1B32}
+.step.s2{background:#F2F2F2;border:2px solid #1A1A1A}
+
+.circle{width:110px;height:110px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0}
+.circle.c{background:#9E1B32}
+.circle.d{background:#1A1A1A}
+.circle .stat{font-size:24px;font-weight:700;color:#FFFFFF;line-height:1.1;font-family:Georgia,serif;text-align:center}
+.circle .tag{font-size:13px;font-weight:700;font-family:Calibri,sans-serif;margin-top:4px;text-align:center}
+.circle.c .tag{color:#FADADD}
+.circle.d .tag{color:#CCCCCC}
+
+.step-body{flex:1;min-width:0}
+.step-label{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-family:Calibri,sans-serif;margin-bottom:.5rem}
+.step.s1 .step-label{color:#9E1B32}
+.step.s2 .step-label{color:#333333}
+
+.ci-title{font-size:13px;font-weight:700;color:#444;font-family:Calibri,sans-serif;margin-bottom:.3rem}
+.ci-track{height:30px;border-radius:8px;overflow:hidden;margin-bottom:.3rem}
+.step.s1 .ci-track{background:#e8d0d2}
+.step.s2 .ci-track{background:#DDDDDD}
+.ci-fill{height:30px;border-radius:8px;display:flex;align-items:center;justify-content:space-between;padding:0 12px}
+.ci-fill.c{background:#9E1B32}
+.ci-fill.d{background:#1A1A1A}
+.ci-num{font-size:13px;font-weight:700;color:#fff;font-family:Calibri,sans-serif}
+.ci-axis{display:flex;justify-content:space-between;font-size:11px;color:#888;font-family:Calibri,sans-serif;padding:0 2px}
+
+.result{background:#fff;border-radius:8px;padding:.7rem .9rem;min-width:170px;text-align:center;flex-shrink:0}
+.step.s1 .result{border:2px solid #9E1B32}
+.step.s2 .result{border:2px solid #AAAAAA}
+.result-main{font-size:13px;font-weight:700;line-height:1.45;font-family:Calibri,sans-serif}
+.step.s1 .result-main{color:#6B1223}
+.step.s2 .result-main{color:#1A1A1A}
+.result-sub{font-size:11px;font-family:Calibri,sans-serif;margin-top:4px}
+.step.s1 .result-sub{color:#9E1B32}
+.step.s2 .result-sub{color:#555}
+
+.bias-banner{background:#1A1A1A;border-radius:8px;padding:.6rem 1rem;margin-bottom:.9rem;display:flex;align-items:center;justify-content:center;gap:.7rem}
+.bias-text{font-size:13px;font-weight:700;color:#fff;font-family:Calibri,sans-serif}
+.bias-arrow{font-size:20px;color:#9E1B32;font-weight:700}
+
+.outcomes-tag{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#9E1B32;font-family:Calibri,sans-serif;margin-bottom:.5rem}
+.outcomes{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-bottom:.9rem}
+.oc{background:#9E1B32;border-radius:28px;padding:.65rem .6rem;text-align:center}
+.oc-label{font-size:14px;font-weight:700;color:#fff;line-height:1.3;font-family:Calibri,sans-serif}
+
+.takeaway{background:#1A1A1A;border-radius:10px;padding:1.1rem 1.3rem;display:flex;align-items:center;gap:1.1rem}
+.tb-pct{font-size:44px;font-weight:700;color:#FADADD;line-height:1;flex-shrink:0;padding-right:1rem;border-right:3px solid #9E1B32}
+.tb-text{font-size:14px;font-weight:700;color:#fff;line-height:1.6;font-family:Calibri,sans-serif}
+.tb-text span{color:#FADADD}
+</style>
+
+<div class="wrap">
+
+  <div class="header">
+    <div class="header-tag">Pooled Bayesian Meta-Analysis · VR Safety Training</div>
+    <div class="header-title">The evidence for VR — step by step</div>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="step s1">
+    <div class="circle c">
+      <div class="stat">0.815</div>
+      <div class="tag">Large effect</div>
+    </div>
+    <div class="step-body">
+      <div class="step-label">Step 1 · Pooled estimate</div>
+      <div class="ci-title">95% Credible Interval</div>
+      <div class="ci-track">
+        <div class="ci-fill c" style="width:82%">
+          <span class="ci-num">0.623</span>
+          <span class="ci-num">1.026</span>
+        </div>
+      </div>
+      <div class="ci-axis"><span>0</span><span>0.5</span><span>1.0</span><span>1.5</span><span>2.0</span></div>
+    </div>
+    <div class="result">
+      <div class="result-main">VR outperforms<br>traditional instruction<br>across all studies</div>
+      <div class="result-sub">Large effect confirmed</div>
+    </div>
+  </div>
+
+  <!-- Bias banner -->
+  <div class="bias-banner">
+    <span class="bias-text">Publication bias detected · Bayesian shrinkage correction applied</span>
+    <span class="bias-arrow">↓</span>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step s2">
+    <div class="circle d">
+      <div class="stat">0.55</div>
+      <div class="tag">Meaningful</div>
+    </div>
+    <div class="step-body">
+      <div class="step-label">Step 2 · Adjusted estimate</div>
+      <div class="ci-title">95% Credible Interval (adjusted)</div>
+      <div class="ci-track">
+        <div class="ci-fill d" style="width:55%">
+          <span class="ci-num">0.26</span>
+          <span class="ci-num">0.81</span>
+        </div>
+      </div>
+      <div class="ci-axis"><span>0</span><span>0.5</span><span>1.0</span><span>1.5</span><span>2.0</span></div>
+    </div>
+    <div class="result">
+      <div class="result-main">Reduced but still<br>practically important</div>
+      <div class="result-sub">Bias corrected</div>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="outcomes-tag">Step 3 · VR improves across three outcome domains</div>
+  <div class="outcomes">
+    <div class="oc"><div class="oc-label">Hazard Recognition</div></div>
+    <div class="oc"><div class="oc-label">Safety Behavior</div></div>
+    <div class="oc"><div class="oc-label">Safety-Related Learning</div></div>
+  </div>
+
+  <!-- Takeaway -->
+  <div class="takeaway">
+    <div class="tb-pct">10–18%</div>
+    <div class="tb-text">
+      Estimated improvement over traditional methods<br>
+      <span>after conservative Bayesian shrinkage adjustment</span>
+    </div>
+  </div>
+
+</div>

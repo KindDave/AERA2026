@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Background and Purpose</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@700;800;900&family=Open+Sans:wght@500;600;700&display=swap');
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  background: #f5f6f8;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 14px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* ── TITLE ── */
+.title-bar {
+  background: #1e3a5f;
+  border-radius: 10px;
+  padding: 11px 16px;
+  margin-bottom: 14px;
+}
+.title-bar h1 {
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: #fff;
+}
+.title-bar p {
+  font-size: .72rem;
+  color: #a8c4e0;
+  margin-top: 2px;
+  font-weight: 600;
+}
+
+/* ── DIAGRAM WRAPPER ── */
+.diagram {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+  flex: 1;
+}
+
+/* Spine line */
+.diagram::before {
+  content: '';
+  position: absolute;
+  left: 19px;
+  top: 22px;
+  bottom: 22px;
+  width: 2px;
+  background: #c8d4e0;
+  border-radius: 2px;
+  z-index: 0;
+}
+
+/* ── NODE ── */
+.node {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  opacity: 0;
+  animation: fadeUp .4s ease forwards;
+}
+.node:nth-child(1){ animation-delay: .05s }
+.node:nth-child(2){ animation-delay: .15s }
+.node:nth-child(3){ animation-delay: .25s }
+.node:nth-child(4){ animation-delay: .35s }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Step circle */
+.step-circle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,.15);
+}
+.n1 .step-circle { background: #c0392b; }
+.n2 .step-circle { background: #d68910; }
+.n3 .step-circle { background: #1e8449; }
+.n4 .step-circle { background: #1a5276; }
+
+/* Card */
+.card {
+  flex: 1;
+  background: #fff;
+  border-radius: 10px;
+  padding: 11px 13px;
+  box-shadow: 0 1px 6px rgba(0,0,0,.08);
+  border-top: 3px solid;
+}
+.n1 .card { border-color: #c0392b; }
+.n2 .card { border-color: #d68910; }
+.n3 .card { border-color: #1e8449; }
+.n4 .card { border-color: #1a5276; }
+
+/* Step label */
+.step-tag {
+  font-size: .65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .9px;
+  margin-bottom: 4px;
+  display: block;
+}
+.n1 .step-tag { color: #c0392b; }
+.n2 .step-tag { color: #b7770d; }
+.n3 .step-tag { color: #1e8449; }
+.n4 .step-tag { color: #1a5276; }
+
+/* Headline */
+.headline {
+  font-family: 'Raleway', sans-serif;
+  font-size: .98rem;
+  font-weight: 900;
+  color: #1a1a2e;
+  line-height: 1.3;
+  margin-bottom: 7px;
+}
+
+/* Simple bullet list */
+.points {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.points li {
+  font-size: .76rem;
+  font-weight: 600;
+  color: #2c2c2c;
+  line-height: 1.45;
+  padding-left: 14px;
+  position: relative;
+}
+.points li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+.n1 .points li::before { background: #c0392b; }
+.n2 .points li::before { background: #d68910; }
+.n3 .points li::before { background: #1e8449; }
+.n4 .points li::before { background: #1a5276; }
+
+/* Objective box */
+.obj-box {
+  background: #eaf2fb;
+  border-radius: 7px;
+  padding: 8px 11px;
+  border-left: 3px solid #1a5276;
+  margin-top: 4px;
+}
+.obj-box p {
+  font-size: .78rem;
+  font-weight: 600;
+  color: #1a2a3a;
+  line-height: 1.55;
+}
+.obj-box p strong {
+  color: #1a5276;
+  font-weight: 800;
+}
+</style>
+</head>
+<body>
+
+<div class="title-bar">
+  <h1>🏗️ Background &amp; Purpose</h1>
+  <p>Research Context — VR for Construction Safety Training</p>
+</div>
+
+<div class="diagram">
+
+  <!-- 1. THE PROBLEM -->
+  <div class="node n1">
+    <div class="step-circle">⚠️</div>
+    <div class="card">
+      <span class="step-tag">1 · The Problem</span>
+      <div class="headline">Construction is One of the Most Hazardous Industries</div>
+      <ul class="points">
+        <li>Consistently high rates of fatal &amp; non-fatal workplace injuries</li>
+        <li>Complex worksites demand rapid hazard recognition</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 2. THE GAP -->
+  <div class="node n2">
+    <div class="step-circle">📋</div>
+    <div class="card">
+      <span class="step-tag">2 · The Gap</span>
+      <div class="headline">Traditional Training Provides Limited Support</div>
+      <ul class="points">
+        <li>Insufficient hazard recognition training</li>
+        <li>Low support for real-world decision-making</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 3. THE SOLUTION -->
+  <div class="node n3">
+    <div class="step-circle">🥽</div>
+    <div class="card">
+      <span class="step-tag">3 · The Solution</span>
+      <div class="headline">VR Offers Immersive, Risk-Free Training Environments</div>
+      <ul class="points">
+        <li>Simulates real hazards without physical risk</li>
+        <li>Supports active, embodied decision-making practice</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 4. STUDY OBJECTIVE -->
+  <div class="node n4">
+    <div class="step-circle">🎯</div>
+    <div class="card">
+      <span class="step-tag">4 · Study Objective</span>
+      <div class="headline">Evaluate VR Training Effectiveness vs. Traditional Instruction</div>
+      <div class="obj-box">
+        <p>To determine whether <strong>VR-based safety training</strong> produces significantly better learning outcomes than <strong>traditional or non-immersive instruction</strong> using Bayesian meta-analysis.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

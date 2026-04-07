@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heterogeneity & Implications</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@700;800;900&family=Open+Sans:wght@500;600;700&display=swap');
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  background: #f5f6f8;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 14px;
+  max-width: 400px;
+  margin: 0 auto;
+  gap: 10px;
+}
+
+/* ── TITLE ── */
+.title-bar {
+  background: #1e3a5f;
+  border-radius: 10px;
+  padding: 11px 16px;
+}
+.title-bar h1 {
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: #fff;
+}
+.title-bar p {
+  font-size: .72rem;
+  color: #a8c4e0;
+  margin-top: 2px;
+  font-weight: 600;
+}
+
+/* ── SECTION LABEL ── */
+.sec-label {
+  font-size: .7rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #0d2a4a;
+  margin-bottom: 7px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.sec-label::after {
+  content: '';
+  flex: 1;
+  height: 2px;
+  background: #c0ccd8;
+  border-radius: 2px;
+}
+
+/* ── HETEROGENEITY STAT CARDS ── */
+.stat-cards {
+  display: flex;
+  gap: 7px;
+  opacity: 0;
+  animation: fadeUp .4s ease .05s forwards;
+}
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(8px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.stat-card {
+  flex: 1;
+  background: #fff;
+  border-radius: 10px;
+  padding: 11px 10px;
+  text-align: center;
+  box-shadow: 0 1px 6px rgba(0,0,0,.09);
+  border-top: 4px solid #1e3a5f;
+}
+.stat-card .sc-val {
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 900;
+  color: #0a1520;
+  line-height: 1;
+}
+.stat-card .sc-name {
+  font-size: .76rem;
+  font-weight: 900;
+  color: #0d2040;
+  margin-top: 5px;
+  text-transform: uppercase;
+  letter-spacing: .6px;
+}
+.stat-card .sc-desc {
+  font-size: .69rem;
+  font-weight: 700;
+  color: #1a2a3a;
+  margin-top: 3px;
+  line-height: 1.35;
+}
+
+/* Progress bar under each stat */
+.progress-wrap {
+  height: 7px;
+  background: #d0d8e4;
+  border-radius: 4px;
+  margin-top: 8px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: #1e3a5f;
+  border-radius: 3px;
+  width: 0;
+  transition: width 1s ease .5s;
+}
+
+/* ── WHAT IT MEANS BOX ── */
+.meaning-box {
+  background: #fff;
+  border-radius: 10px;
+  padding: 11px 13px;
+  box-shadow: 0 1px 6px rgba(0,0,0,.09);
+  border-left: 4px solid #1e3a5f;
+  opacity: 0;
+  animation: fadeUp .4s ease .18s forwards;
+}
+.meaning-box .mb-title {
+  font-size: .76rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .8px;
+  color: #0a1a2e;
+  margin-bottom: 9px;
+}
+.meaning-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  margin-bottom: 9px;
+}
+.meaning-row:last-child { margin-bottom: 0; }
+.mr-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #ddeeff;
+  border: 2px solid #1e3a5f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+.mr-text {}
+.mr-label {
+  font-size: .78rem;
+  font-weight: 900;
+  color: #0a1520;
+  display: block;
+  line-height: 1.25;
+}
+.mr-sub {
+  font-size: .7rem;
+  font-weight: 700;
+  color: #1a2a3a;
+  margin-top: 3px;
+  line-height: 1.45;
+}
+
+/* ── FUNNEL PLOT ── */
+.funnel-wrap {
+  background: #fff;
+  border-radius: 10px;
+  padding: 11px 12px;
+  box-shadow: 0 1px 6px rgba(0,0,0,.09);
+  border-top: 3px solid #1e3a5f;
+  opacity: 0;
+  animation: fadeUp .4s ease .3s forwards;
+}
+.chart-container {
+  position: relative;
+  height: 115px;
+}
+
+/* ── IMPLICATION NODES ── */
+.impl-diagram {
+  opacity: 0;
+  animation: fadeUp .4s ease .42s forwards;
+}
+.impl-flow {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+}
+.impl-node {
+  flex: 1;
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px 9px;
+  text-align: center;
+  box-shadow: 0 1px 6px rgba(0,0,0,.09);
+  border-bottom: 4px solid;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+.impl-node:nth-child(1) { border-color: #c0392b; }
+.impl-node:nth-child(2) { border-color: #d68910; }
+.impl-node:nth-child(3) { border-color: #1e8449; }
+.impl-node:nth-child(4) { border-color: #1e3a5f; }
+
+.impl-connector {
+  display: flex;
+  align-items: center;
+  padding: 0 2px;
+  flex-shrink: 0;
+}
+.impl-connector span {
+  font-size: .72rem;
+  color: #3a5a7a;
+  font-weight: 900;
+}
+
+.in-icon { font-size: 1.45rem; }
+.in-label {
+  font-size: .72rem;
+  font-weight: 900;
+  color: #0a1520;
+  line-height: 1.3;
+}
+.in-sub {
+  font-size: .64rem;
+  font-weight: 700;
+  color: #1a2a3a;
+  line-height: 1.35;
+}
+</style>
+</head>
+<body>
+
+<div class="title-bar">
+  <h1>🔀 Heterogeneity &amp; Implications</h1>
+  <p>Study Variability — What It Means for VR Training</p>
+</div>
+
+<!-- STAT CARDS -->
+<div>
+  <div class="sec-label">📐 Heterogeneity Statistics</div>
+  <div class="stat-cards">
+
+    <div class="stat-card" id="c1">
+      <div class="sc-val">τ = 0.24</div>
+      <div class="sc-name">Tau</div>
+      <div class="sc-desc">Between-study variance — low to moderate</div>
+      <div class="progress-wrap"><div class="progress-fill" style="width:0%" data-w="24%"></div></div>
+    </div>
+
+    <div class="stat-card" id="c2">
+      <div class="sc-val">I² = 37%</div>
+      <div class="sc-name">I-Squared</div>
+      <div class="sc-desc">Moderate heterogeneity across studies</div>
+      <div class="progress-wrap"><div class="progress-fill" style="width:0%" data-w="37%"></div></div>
+    </div>
+
+    <div class="stat-card" id="c3">
+      <div class="sc-val" style="font-size:1.25rem;padding-top:4px;color:#0a1520;">Random<br>Effects</div>
+      <div class="sc-name">Model</div>
+      <div class="sc-desc">Bayesian shrinkage adjustment applied</div>
+      <div class="progress-wrap"><div class="progress-fill" style="width:0%;background:#1e8449;" data-w="100%"></div></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- WHAT HETEROGENEITY MEANS -->
+<div class="meaning-box">
+  <div class="mb-title">💡 What This Means</div>
+
+  <div class="meaning-row">
+    <div class="mr-icon">📉</div>
+    <div class="mr-text">
+      <span class="mr-label">Smaller studies reported larger effects</span>
+      <span class="mr-sub">A known pattern — shrinkage correction accounts for this inflation</span>
+    </div>
+  </div>
+
+  <div class="meaning-row">
+    <div class="mr-icon">🛡️</div>
+    <div class="mr-text">
+      <span class="mr-label">Conservative modeling is warranted</span>
+      <span class="mr-sub">Moderate I² (37%) supports use of random-effects Bayesian approach</span>
+    </div>
+  </div>
+
+  <div class="meaning-row">
+    <div class="mr-icon">✅</div>
+    <div class="mr-text">
+      <span class="mr-label">VR remains effective after adjustment</span>
+      <span class="mr-sub">Adjusted d = 0.55 still exceeds practical significance threshold</span>
+    </div>
+  </div>
+</div>
+
+<!-- FUNNEL PLOT -->
+<div class="funnel-wrap">
+  <div class="sec-label">🔺 Funnel Plot — Publication Bias (Egger's Line, p = 0.000)</div>
+  <div class="chart-container"><canvas id="funnelChart"></canvas></div>
+</div>
+
+<!-- IMPLICATIONS FLOW -->
+<div class="impl-diagram">
+  <div class="sec-label">🏗️ Practical Implications for VR Training</div>
+  <div class="impl-flow">
+
+    <div class="impl-node">
+      <span class="in-icon">👁️</span>
+      <span class="in-label">Hazard Recognition</span>
+      <span class="in-sub">Strongest VR gain</span>
+    </div>
+    <div class="impl-connector"><span>▶</span></div>
+
+    <div class="impl-node">
+      <span class="in-icon">🦺</span>
+      <span class="in-label">Safe Behavior</span>
+      <span class="in-sub">Improved practice</span>
+    </div>
+    <div class="impl-connector"><span>▶</span></div>
+
+    <div class="impl-node">
+      <span class="in-icon">🏗️</span>
+      <span class="in-label">Workforce Dev</span>
+      <span class="in-sub">Strong potential</span>
+    </div>
+    <div class="impl-connector"><span>▶</span></div>
+
+    <div class="impl-node">
+      <span class="in-icon">🎯</span>
+      <span class="in-label">VR Adoption</span>
+      <span class="in-sub">Evidence-based case</span>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// Animate progress bars
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.querySelectorAll('.progress-fill').forEach(el => {
+      el.style.width = el.dataset.w;
+    });
+  }, 400);
+});
+
+// Funnel plot
+const fCtx = document.getElementById('funnelChart').getContext('2d');
+const pts = [
+  {x:.50,y:.20},{x:.48,y:.20},{x:.52,y:.21},{x:.62,y:.24},
+  {x:.55,y:.25},{x:.70,y:.27},{x:.75,y:.27},{x:.85,y:.32},
+  {x:.95,y:.35},{x:1.10,y:.36},{x:.80,y:.40},{x:.50,y:.50},
+  {x:1.30,y:.35},{x:1.50,y:.39}
+];
+const egger = [{x:0.0,y:0.18},{x:2.0,y:0.50}];
+const mean  = 0.55;
+const bounds = [];
+for (let se = 0; se <= 0.52; se += 0.01) bounds.push({x: mean - 1.96*se, y: se});
+const boundsR = bounds.map(p => ({x: mean + 1.96*p.y, y: p.y}));
+
+const gridColor = 'rgba(0,0,0,.06)';
+const tickColor = '#1a2a3a';
+const baseFont  = { size: 9, weight: '700', family: 'Open Sans' };
+
+new Chart(fCtx, {
+  type: 'scatter',
+  data: {
+    datasets: [
+      { label: 'Studies', data: pts,
+        backgroundColor: '#1e3a5f', pointRadius: 4 },
+      { label: "Egger's Line (p=0.000)", data: egger,
+        type:'line', borderColor:'#c0392b', borderWidth:1.8,
+        borderDash:[5,4], pointRadius:0, fill:false },
+      { label: '95% Funnel', data:[...bounds,...boundsR.reverse()],
+        type:'line', borderColor:'rgba(0,0,0,.2)', borderWidth:1,
+        borderDash:[3,3], pointRadius:0, fill:false }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { position:'bottom',
+        labels:{ color:tickColor, font:baseFont, boxWidth:10, padding:5 } }
+    },
+    scales: {
+      x: { min:0, max:2,
+           ticks:{ color:tickColor, font:baseFont }, grid:{ color:gridColor },
+           title:{ display:true, text:'Effect Size', color:tickColor, font:baseFont } },
+      y: { min:0, max:0.55, reverse:true,
+           ticks:{ color:tickColor, font:baseFont }, grid:{ color:gridColor },
+           title:{ display:true, text:'Std. Error', color:tickColor, font:baseFont } }
+    }
+  }
+});
+</script>
+</body>
+</html>
